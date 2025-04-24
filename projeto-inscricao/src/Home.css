@@ -1,0 +1,144 @@
+/* src/Home.css */
+
+/* Container principal */
+.home-container {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  /* Cabeçalho fixo */
+  .home-header {
+    background-color: #05473e;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    width: 97%;
+  }
+  
+  /* Título do cabeçalho */
+  .home-title {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  /* Botões no cabeçalho */
+  .home-buttons {
+    display:flex;
+    gap: 10px;
+  }
+  
+  /* Estilo dos botões */
+  .home-button {
+    background-color: #227885;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Efeito ao passar o mouse sobre os botões */
+  .home-button:hover {
+    background-color: #49bec4;
+  }
+  
+  /* Conteúdo principal */
+  .home-content {
+    flex: 1;
+    background-image: url("./assets/depositphotos_158153454-stock-illustration-vintage-old-background.jpg"); /* coloque sua imagem em src/assets/ */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 500px;
+    color: white;
+  }
+  
+  .home-overlay-text {
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.5); /* Sombra escura para legibilidade */
+    padding: 1rem 2rem;
+    border-radius: 10px;
+  }
+  /* Rodapé */
+  .home-footer {
+    text-align: center;
+    margin-top: 1px;
+    padding: 10px;
+    background-color: #05473e;
+    color: white;
+    font-size: 1rem;
+    position: relative;
+  }
+
+  /* Estilo do modal de login */
+.login-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Para garantir que o modal esteja no topo */
+}
+
+.login-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-modal-content input {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-modal-content button {
+  background-color: #227885;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px; /* Espaçamento abaixo de cada botão */
+}
+
+.login-modal-content button:last-child {
+  margin-bottom: 0; /* Remove o espaçamento do último botão */
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+  

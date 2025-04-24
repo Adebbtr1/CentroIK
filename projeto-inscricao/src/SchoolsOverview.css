@@ -1,0 +1,111 @@
+/* Container principal */
+.schools-overview-container {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: url("./assets/school-background.jpg"); /* Alterar para imagem desejada */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+  }
+  
+  /* Cabeçalho */
+  .schools-overview-header {
+    background-color: #05473e;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    width: 97%;
+  }
+  
+  .schools-overview-title {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  .schools-overview-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .schools-overview-button {
+    background-color: #227885;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .schools-overview-button:hover {
+    background-color: #49bec4;
+  }
+  
+  /* Área de exibição das escolas */
+  .schools-overview-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 120px;
+    padding-bottom: 40px;
+  }
+  
+  .schools-overview-card {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px 30px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .schools-overview-card h3 {
+    margin-bottom: 10px;
+  }
+  
+  .schools-overview-card p {
+    margin: 5px 0;
+  }
+  
+  .schools-overview-card h4 {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .schools-overview-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .schools-overview-card li {
+    margin: 5px 0;
+    font-size: 1.1rem;
+  }
+  
+  /* Rodapé */
+  .schools-overview-footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #05473e;
+    color: white;
+    font-size: 1rem;
+    position: relative;
+  }
+  

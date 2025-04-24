@@ -1,0 +1,125 @@
+/* src/Registration.css */
+
+/* Container geral da página */
+.registration-container {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: url("./assets/depositphotos_158153454-stock-illustration-vintage-old-background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  /* Cabeçalho */
+  .registration-header {
+    background-color: #05473e;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Título do cabeçalho */
+  .registration-title {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  /* Botões no cabeçalho */
+  .registration-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .registration-button {
+    background-color: #227885;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .registration-button:hover {
+    background-color: #49bec4;
+  }
+  
+  /* Conteúdo do formulário */
+  .registration-form-wrapper {
+    flex: 1;
+    margin-top: 140px; /* espaço para o cabeçalho */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+  
+  .registration-form {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .registration-form h2 {
+    margin-bottom: 20px;
+    color: #05473e;
+    font-size: 1.5rem;
+  }
+  
+  .registration-form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #05473e;
+  }
+  
+  .registration-form input,
+  .registration-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  .registration-form button {
+    margin-top: 20px;
+    background-color: #227885;
+    color: white;
+    padding: 12px;
+    border: none;
+    width: 100%;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .registration-form button:hover {
+    background-color: #49bec4;
+  }
+  
+  /* Rodapé */
+  .registration-footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #05473e;
+    color: white;
+    font-size: 1rem;
+  }
+  
