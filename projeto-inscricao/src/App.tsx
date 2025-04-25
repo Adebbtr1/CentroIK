@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GroupRegistration from "./components/GroupRegistration";
 import UserRegistration from "./components/UserRegistration";
 import Home from "./components/Home";
 import SchoolsOverview from "./components/SchoolsOverview";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import React from 'react';
+
+
 
 // Tipos para representar grupos e usuários
 interface Group {
@@ -15,6 +17,7 @@ interface Group {
   cnpj: string;
 }
 
+// Tipo completo vindo do banco
 interface User {
   id: string;
   fullName: string;
@@ -25,19 +28,44 @@ interface User {
   groupId: string;
 }
 
+// Tipo para novo usuário (sem _id ainda)
+interface NewUser {
+  fullName: string;
+  birthDate: string;
+  email: string;
+  phoneNumber: string;
+  responsibleName: string;
+  groupId: string;
+}
+
+
+
 // Componente principal da aplicação
 const AppContent = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const { isAdmin, toggleAdmin } = useAuth();
 
+  // Carregar grupos e usuários
+  useEffect(() => {
+    // Buscar grupos (se necessário)
+    // fetch('/api/groups').then(response => response.json()).then(data => setGroups(data));
+
+    // Carregar usuários
+    fetch('http://localhost:5000/users')
+      .then(res => res.json())
+      .then(data => setUsers(data))
+      .catch(err => console.error("Erro ao carregar usuários:", err));
+  }, []);
+
   const addGroup = (group: Group) => {
     setGroups((prevGroups) => [...prevGroups, group]);
   };
 
-  const addUser = (user: User) => {
-    setUsers((prevUsers) => [...prevUsers, user]);
+  const addUser = (user: NewUser) => {
+    setUsers((prevUsers) => [...prevUsers, { ...user, id: crypto.randomUUID() }]); // adiciona um _id fake só pra manter o tipo
   };
+  
 
   return (
     <div>

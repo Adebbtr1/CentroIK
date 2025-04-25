@@ -1,8 +1,6 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../Cadastro.css";
-import React from 'react';
-
 
 interface Group {
   id: string;
@@ -11,8 +9,7 @@ interface Group {
   cnpj: string;
 }
 
-interface User {
-  id: string;
+interface NewUser {
   fullName: string;
   birthDate: string;
   email: string;
@@ -23,39 +20,78 @@ interface User {
 
 interface UserRegistrationProps {
   groups: Group[];
-  addUser: (user: User) => void;
+  addUser: (user: NewUser) => void;
 }
 
-const UserRegistration = ({ groups, addUser }: UserRegistrationProps) => {
-  const [fullName, setFullName] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [responsibleName, setResponsibleName] = useState("");
-  const [groupId, setGroupId] = useState(groups[0]?.id || "");
+const UserRegistration: React.FC<UserRegistrationProps> = ({ groups, addUser }) => {
+  const [formData, setFormData] = useState<NewUser>({
+    fullName: "",
+    birthDate: "",
+    email: "",
+    phoneNumber: "",
+    responsibleName: "",
+    groupId: groups[0]?.id || "",
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    const savedUser = localStorage.getItem("lastUser");
+    if (savedUser) {
+      const user = JSON.parse(savedUser);
+      setFormData((prev) => ({
+        ...prev,
+        fullName: user.fullName || "",
+        birthDate: user.birthDate || "",
+        email: user.email || "",
+        phoneNumber: user.phoneNumber || "",
+        responsibleName: user.responsibleName || "",
+        groupId: user.groupId || groups[0]?.id || "",
+      }));
+    }
+  }, [groups]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newUser = { 
-      id: crypto.randomUUID(), 
-      fullName, 
-      birthDate, 
-      email, 
-      phoneNumber, 
-      responsibleName, 
-      groupId 
-    };
-    addUser(newUser);
-    setFullName("");
-    setBirthDate("");
-    setEmail("");
-    setPhoneNumber("");
-    setResponsibleName("");
+
+    try {
+      const response = await fetch("http://localhost:5000/register-user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        addUser(formData); // Adiciona no front (sem _id)
+        alert("Usuário cadastrado com sucesso!");
+
+        // Limpa o formulário
+        setFormData({
+          fullName: "",
+          birthDate: "",
+          email: "",
+          phoneNumber: "",
+          responsibleName: "",
+          groupId: groups[0]?.id || "",
+        });
+
+        // Armazena no localStorage
+        localStorage.setItem("lastUser", JSON.stringify(formData));
+      } else {
+        alert("Erro ao cadastrar usuário.");
+      }
+    } catch (error) {
+      console.error("Erro ao cadastrar:", error);
+    }
   };
 
   return (
     <div className="cadastro-container">
-      {/* Cabeçalho */}
       <header className="cadastro-header">
         <h1 className="cadastro-title">Cadastro de Usuário</h1>
         <div className="cadastro-buttons">
@@ -68,63 +104,28 @@ const UserRegistration = ({ groups, addUser }: UserRegistrationProps) => {
         </div>
       </header>
 
-      {/* Conteúdo principal */}
       <main className="cadastro-form-wrapper">
         <form className="cadastro-form" onSubmit={handleSubmit}>
           <h2>Preencha os dados abaixo:</h2>
 
-          <label htmlFor="full-name">Nome Completo:</label>
-          <input
-            type="text"
-            id="full-name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            required
-          />
+          <label>Nome Completo:</label>
+          <input name="fullName" value={formData.fullName} onChange={handleChange} required />
 
-          <label htmlFor="birth-date">Data de Nascimento:</label>
-          <input
-            type="date"
-            id="birth-date"
-            value={birthDate}
-            onChange={(e) => setBirthDate(e.target.value)}
-            required
-          />
+          <label>Data de Nascimento:</label>
+          <input name="birthDate" type="date" value={formData.birthDate} onChange={handleChange} required />
 
-          <label htmlFor="email">E-mail:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <label>Email:</label>
+          <input name="email" type="email" value={formData.email} onChange={handleChange} required />
 
-          <label htmlFor="phone-number">Número de Telefone:</label>
-          <input
-            type="tel"
-            id="phone-number"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            required
-          />
+          <label>Telefone:</label>
+          <input name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
 
-          <label htmlFor="responsible-name">Nome do Responsável:</label>
-          <input
-            type="text"
-            id="responsible-name"
-            value={responsibleName}
-            onChange={(e) => setResponsibleName(e.target.value)}
-            required
-          />
+          <label>Nome do Responsável:</label>
+          <input name="responsibleName" value={formData.responsibleName} onChange={handleChange} required />
 
-          <label htmlFor="group">Escolha um Grupo:</label>
-          <select
-            id="group"
-            value={groupId}
-            onChange={(e) => setGroupId(e.target.value)}
-            required
-          >
+          <label>Grupo:</label>
+          <select name="groupId" value={formData.groupId} onChange={handleChange} required>
+            <option value="">Selecione um grupo</option>
             {groups.map((group) => (
               <option key={group.id} value={group.id}>
                 {group.institutionName}
@@ -136,7 +137,6 @@ const UserRegistration = ({ groups, addUser }: UserRegistrationProps) => {
         </form>
       </main>
 
-      {/* Rodapé */}
       <footer className="cadastro-footer">
         <p>© 2025 Centro Integrado Kids</p>
       </footer>

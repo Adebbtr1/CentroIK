@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../Registration.css";
+import React from 'react';
 
 interface Group {
   id: string;

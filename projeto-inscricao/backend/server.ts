@@ -83,3 +83,37 @@ app.post('/toggle-admin', async (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+
+// Schema do usuário registrado
+const registrationSchema = new mongoose.Schema({
+  fullName: String,
+  birthDate: String,
+  email: String,
+  phoneNumber: String,
+  responsibleName: String,
+  groupId: String,
+});
+
+const RegisteredUser = mongoose.model('RegisteredUser', registrationSchema);
+
+// Rota para registrar um novo usuário
+app.post('/register-user', async (req: Request, res: Response) => {
+  try {
+    const newUser = new RegisteredUser(req.body);
+    await newUser.save();
+    res.status(201).json({ message: 'Usuário salvo com sucesso!' });
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao salvar o usuário.' });
+  }
+});
+
+// Rota para buscar todos os usuários registrados
+app.get('/users', async (req: Request, res: Response) => {
+  try {
+    // Excluindo o campo "password" da resposta
+    const users = await RegisteredUser.find().select('-password');
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar usuários.' });
+  }
+});
