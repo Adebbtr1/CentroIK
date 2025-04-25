@@ -10,7 +10,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "backend/server.ts"  ],
   
   "exclude": [
     "node_modules"

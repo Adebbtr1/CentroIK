@@ -5,6 +5,7 @@ import UserRegistration from "./components/UserRegistration";
 import Home from "./components/Home";
 import SchoolsOverview from "./components/SchoolsOverview";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import React from 'react';
 
 // Tipos para representar grupos e usuários
 interface Group {

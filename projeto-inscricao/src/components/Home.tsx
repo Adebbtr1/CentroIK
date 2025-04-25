@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import "../Home.css";
 import { FaTools } from "react-icons/fa";
@@ -16,6 +15,7 @@ const Home = () => {
   // Função de login que verifica o nome de usuário e a senha no backend
   const handleLogin = async () => {
     try {
+      // Alteração da URL para o endpoint correto do backend
       const response = await axios.post("http://localhost:5000/login", {
         username,
         password,
@@ -64,7 +64,7 @@ const Home = () => {
         <div className="role-switcher">
           <button className="home-button" onClick={handleRoleSwitch}>
             <FaTools style={{ marginRight: "8px" }} />
-            {isAdmin ? "Usuário" : "Admin"}
+            {isAdmin ? "Usuário" : ""}
           </button>
         </div>
       </div>
