@@ -3,10 +3,14 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import bcrypt from 'bcryptjs';
+import dotenv from 'dotenv';
+
+// Carregar variáveis de ambiente do arquivo .env
+dotenv.config();
 
 // Criar a aplicação Express
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000; // Usar a porta fornecida pelo Heroku ou 5000 para local
 
 // Middleware
 app.use(bodyParser.json());
@@ -31,7 +35,9 @@ userSchema.pre('save', async function (next) {
 const User = mongoose.model('User', userSchema);
 
 // Conectar ao MongoDB e criar usuário admin se não existir
-mongoose.connect('mongodb://localhost:27017/centro-integrado-kids')
+const dbURI = process.env.MONGO_URL || 'mongodb://localhost:27017/centro-integrado-kids';
+
+mongoose.connect(dbURI)
   .then(async () => {
     console.log('Conectado ao MongoDB');
 

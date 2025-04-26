@@ -141,4 +141,33 @@
   margin-bottom: 10px;
 }
 
+/* Container do input de senha e ícone */
+.password-input-container {
+  position: relative;
+  width: 100%;
+  margin-right: 21px;
+}
+
+/* Estilo para o campo de senha */
+.password-input-container input {
+  padding-right: 10px; /* Deixa espaço para o ícone */
+}
+
+/* Estilo para o ícone (olho) */
+.password-input-container span {
+  position: absolute;
+  top: 50%;
+  right: 0px; /* Ajuste o valor conforme necessário */
+  transform: translateY(-50%); /* Alinha verticalmente o ícone */
+  cursor: pointer;
+  font-size: 1rem; /* Ajuste o tamanho do ícone se necessário */
+  color: #227885; /* Cor do ícone */
+}
+
+/* Para o input de senha */
+.login-modal-content input[type="password"] {
+  padding-right: 9px; /* Espaço para o ícone */
+}
+
+
   

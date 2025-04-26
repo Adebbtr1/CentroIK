@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "../Home.css";
-import { FaTools } from "react-icons/fa";
+import { FaTools, FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 
 const Home = () => {
@@ -11,6 +11,7 @@ const Home = () => {
   const [username, setUsername] = useState(""); // Estado para o nome de usuário
   const [password, setPassword] = useState(""); // Estado para a senha
   const [loginError, setLoginError] = useState(""); // Para mostrar erros de login
+  const [showPassword, setShowPassword] = useState(false); // Controle de visibilidade da senha
 
   // Função de login que verifica o nome de usuário e a senha no backend
   const handleLogin = async () => {
@@ -29,6 +30,13 @@ const Home = () => {
       setLoginError(""); // Limpa qualquer mensagem de erro
     } catch (error: any) {
       setLoginError("Usuário ou senha inválidos.");
+    }
+  };
+
+  // Função para capturar a tecla pressionada
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleLogin();
     }
   };
 
@@ -79,13 +87,24 @@ const Home = () => {
               placeholder="Usuário"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              onKeyDown={handleKeyPress}  // Adicionando o evento de tecla
             />
-            <input
-              type="password"
-              placeholder="Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="password-input-container">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeyPress}  // Adicionando o evento de tecla
+              />
+              {/* Ícone para alternar a visibilidade da senha */}
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{ cursor: 'pointer' }}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
             {loginError && <p className="error">{loginError}</p>}
             <button onClick={handleLogin}>Entrar</button>
             <button onClick={() => setIsLoginOpen(false)}>Fechar</button>
